@@ -1,2 +1,3 @@
 week 1
-Setting up git
+Github for coursework setup 
+
