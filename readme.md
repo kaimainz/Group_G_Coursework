@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/kaimainz/Group_G_Coursework.svg?branch=master)](https://travis-ci.org/kaimainz/Group_G_Coursework)
