@@ -12,7 +12,7 @@ public class App
         // Connect to database
         a.connect();
         // Get Employee
-        cityTest city = a.getcity(11);
+        Database city = a.getcity(11);
         // Display results
         a.displaycity(city);
 
@@ -83,7 +83,7 @@ public class App
             }
         }
     }
-    public cityTest getcity(int ID)
+    public Database getcity(int ID)
     {
         try
         {
@@ -99,7 +99,7 @@ public class App
             // Check one is returned
             if (rset.next())
             {
-                cityTest city = new cityTest();
+                Database city = new Database();
                 city.ID = rset.getInt("ID");
                 city.Name = rset.getString("Name");
                 city.Population = rset.getInt("Population");
@@ -116,7 +116,7 @@ public class App
         }
     }
 
-    public void displaycity(cityTest city)
+    public void displaycity(Database city)
     {
         if (city != null)
         {
