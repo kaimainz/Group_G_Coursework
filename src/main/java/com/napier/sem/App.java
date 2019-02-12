@@ -12,9 +12,9 @@ public class App
         // Connect to database
         a.connect();
         // Get Employee
-        Employee emp = a.getEmployee(255530);
+        cityTest city = a.getcity(11);
         // Display results
-        a.displayEmployee(emp);
+        a.displaycity(city);
 
         // Disconnect from database
         a.disconnect();
@@ -49,7 +49,7 @@ public class App
                 // Wait a bit for db to start
                 Thread.sleep(30000);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/employees?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
             }
@@ -83,7 +83,7 @@ public class App
             }
         }
     }
-    public Employee getEmployee(int ID)
+    public cityTest getcity(int ID)
     {
         try
         {
@@ -91,20 +91,19 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT emp_no, first_name, last_name "
-                            + "FROM employees "
-                            + "WHERE emp_no = " + ID;
+                    "SELECT ID, name, population "
+                            + "FROM city ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new employee if valid.
             // Check one is returned
             if (rset.next())
             {
-                Employee emp = new Employee();
-                emp.emp_no = rset.getInt("emp_no");
-                emp.first_name = rset.getString("first_name");
-                emp.last_name = rset.getString("last_name");
-                return emp;
+                cityTest city = new cityTest();
+                city.ID = rset.getInt("ID");
+                city.Name = rset.getString("Name");
+                city.Population = rset.getInt("Population");
+                return city;
             }
             else
                 return null;
@@ -117,18 +116,15 @@ public class App
         }
     }
 
-    public void displayEmployee(Employee emp)
+    public void displaycity(cityTest city)
     {
-        if (emp != null)
+        if (city != null)
         {
             System.out.println(
-                    emp.emp_no + " "
-                            + emp.first_name + " "
-                            + emp.last_name + "\n"
-                            + emp.title + "\n"
-                            + "Salary:" + emp.salary + "\n"
-                            + emp.dept_name + "\n"
-                            + "Manager: " + emp.manager + "\n");
+                    city.ID + " "
+                            + city.Name + " "
+                            + city.Population + "\n");
+
         }
     }
 }
