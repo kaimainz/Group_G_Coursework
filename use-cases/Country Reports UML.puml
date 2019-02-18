@@ -1,0 +1,15 @@
+@startuml
+actor President as "UN President"
+
+rectangle database
+
+rectangle "Reporting System" {
+    usecase UC3 as "Country Reports"
+
+    usecase UCc as "Display requested
+     Country Report"
+
+     President - UC3
+     UC3 ..> UCc : include
+     UC3 - database
+@enduml
