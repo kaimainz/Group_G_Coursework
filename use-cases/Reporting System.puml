@@ -1,20 +1,16 @@
 @startuml
-:Main Admin: as Admin
-(Use the application) as (Use)
 
-User -> (Start)
-User --> (Use)
+actor President as "UN President"
 
-Admin ---> (Use)
+rectangle database
 
-note right of Admin : This is an example.
+rectangle "Reporting System" {
+    usecase UC1 as "Capital Cities Reports"
 
-note right of (Use)
-A note can also
-be on several lines
-end note
+    usecase UCa as "Display requested Capital
+     City Report"
 
-note "This note is connected\nto several objects." as N2
-(Start) .. N2
-N2 .. (Use)
+     President - UC1
+     UC1 ..> UCa : include
+     UC1 - database
 @enduml
