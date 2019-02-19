@@ -125,11 +125,11 @@ public class App
         if (city != null)
         {
             System.out.println(
-                    city.ID + " "
-                            + city.Name + " "
-                            + city.District + " "
-                            + city.CountryCode + " "
-                            + city.Population + " ");
+                    "ID: " + city.ID + " |"
+                            + "City Name: " + city.Name + " |"
+                            + "City District: " + city.District + " |"
+                            + "CountryCode: " + city.CountryCode + " |"
+                            + "Population: " + city.Population + "|");
 
         }
     }
