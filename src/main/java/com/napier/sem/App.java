@@ -12,7 +12,7 @@ public class App
         // Connect to database
         a.connect();
         // Get city
-        Database city = a.getcity(11);
+        City city = a.getcity(11);
         // Display results
         a.displaycity(city);
 
@@ -83,7 +83,7 @@ public class App
             }
         }
     }
-    public Database getcity(int ID)
+    public City getcity(int ID)
     {
         try
         {
@@ -91,8 +91,10 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT ID, name, CountryCode, District, population "
-                            + "FROM city ";
+                    "SELECT city.ID, city.name, country.name, city.District, city.Population "
+                            +"FROM country, city "
+                            +"WHERE country.code = city.CountryCode";
+
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new City if valid.
@@ -101,12 +103,24 @@ public class App
 
             //Define database attributes in Java
             {
-                Database city = new Database();
+                City city = new City();
+              
                 city.ID = rset.getInt("ID");
                 city.Name = rset.getString("Name");
                 city.Population = rset.getInt("Population");
                 city.CountryCode = rset.getString("CountryCode");
                 city.District = rset.getString("District");
+
+
+                Country myCountry = new Country();
+
+
+                myCountry.code = rset.getString("Code");
+
+                myCountry.countryName = rset.getString("Name");
+
+
+                city.country = myCountry;
                 return city;
             }
             else
@@ -115,12 +129,12 @@ public class App
         catch (Exception e)
         {
             System.out.println(e.getMessage());
-            System.out.println("Failed to get employee details");
+            System.out.println("Failed to get City details");
             return null;
         }
     }
 
-    public void displaycity(Database city)
+    public void displaycity(City city)
     {
         if (city != null)
         {
@@ -128,7 +142,7 @@ public class App
                     "ID: " + city.ID + " |"
                             + "City Name: " + city.Name + " |"
                             + "City District: " + city.District + " |"
-                            + "CountryCode: " + city.CountryCode + " |"
+                            + "Country: " + city.country.countryName + " |"
                             + "Population: " + city.Population + "|");
 
         }

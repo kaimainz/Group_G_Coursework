@@ -1,6 +1,6 @@
 package com.napier.sem;
 
-public class Database {
+public class City {
 
     //Attributes for city table
 
@@ -14,18 +14,8 @@ public class Database {
 
     public String District;
 
+    public Country country;
 
-    //Attributes for country
-
-    public String Code;
-
-    public String countryName;
-
-    public String Continent;
-
-    public String Region;
-
-    public Float SurfaceArea;
 
 
 }
