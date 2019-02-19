@@ -11,7 +11,7 @@ public class App
 
         // Connect to database
         a.connect();
-        // Get Employee
+        // Get city
         Database city = a.getcity(11);
         // Display results
         a.displaycity(city);
@@ -91,18 +91,22 @@ public class App
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT ID, name, population "
+                    "SELECT ID, name, CountryCode, District, population "
                             + "FROM city ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
-            // Return new employee if valid.
+            // Return new City if valid.
             // Check one is returned
             if (rset.next())
+
+            //Define database attributes in Java
             {
                 Database city = new Database();
                 city.ID = rset.getInt("ID");
                 city.Name = rset.getString("Name");
                 city.Population = rset.getInt("Population");
+                city.CountryCode = rset.getString("CountryCode");
+                city.District = rset.getString("District");
                 return city;
             }
             else
@@ -123,7 +127,9 @@ public class App
             System.out.println(
                     city.ID + " "
                             + city.Name + " "
-                            + city.Population + "\n");
+                            + city.District + " "
+                            + city.CountryCode + " "
+                            + city.Population + " ");
 
         }
     }
