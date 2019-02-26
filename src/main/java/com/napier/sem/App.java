@@ -1,6 +1,7 @@
 package com.napier.sem;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class App
 {
@@ -12,9 +13,12 @@ public class App
         // Connect to database
         a.connect();
         // Get city
-        City city = a.getcity(11);
+        ArrayList<City> cityList = a.getAllCities();
         // Display results
-        a.displaycity(city);
+        for (int i = 0; i < cityList.size(); i++){
+            a.displaycity(cityList.get(i));
+        }
+
 
         // Disconnect from database
         a.disconnect();
@@ -83,26 +87,28 @@ public class App
             }
         }
     }
-    public City getcity(int ID)
+    public ArrayList<City> getAllCities()
     {
+
+        ArrayList<City> ResultList = new ArrayList<City>();
         try
         {
             // Create an SQL statement
             Statement stmt = con.createStatement();
             // Create string for SQL statement
             String strSelect =
-                    "SELECT city.ID, city.name, country.name, city.District, city.Population "
+                    "SELECT city.ID, city.name, country.name, city.District, city.Population, country.code, city.CountryCode "
                             +"FROM country, city "
-                            +"WHERE country.code = city.CountryCode";
-
+                            +"WHERE country.code = city.CountryCode "
+                            +"ORDER BY city.Population DESC ";
             // Execute SQL statement
             ResultSet rset = stmt.executeQuery(strSelect);
             // Return new City if valid.
             // Check one is returned
-            if (rset.next())
-
-            //Define database attributes in Java
+            while (rset.next())
             {
+
+                //Define database attributes in Java
                 City city = new City();
               
                 city.ID = rset.getInt("ID");
@@ -121,10 +127,11 @@ public class App
 
 
                 city.country = myCountry;
-                return city;
+                ResultList.add(city);
             }
-            else
-                return null;
+
+            return ResultList;
+
         }
         catch (Exception e)
         {
@@ -139,12 +146,18 @@ public class App
         if (city != null)
         {
             System.out.println(
-                    "ID: " + city.ID + " |"
-                            + "City Name: " + city.Name + " |"
-                            + "City District: " + city.District + " |"
+
+                             "City Name: " + city.Name + " |"
                             + "Country: " + city.country.countryName + " |"
+                            + "City District: " + city.District + " |"
                             + "Population: " + city.Population + "|");
 
         }
+        else
+        {
+            System.out.println("City is Null");
+        }
+
+
     }
 }
