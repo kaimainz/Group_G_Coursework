@@ -12,13 +12,20 @@ public class App
 
         // Connect to database
         a.connect();
-        // Get city
-        ArrayList<City> cityList = a.getAllCities();
+        // Get city ordered by pop large to small
+        ArrayList<City> cityList = a.CityPopLargeToSmall();
         // Display results
         for (int i = 0; i < cityList.size(); i++){
             a.displaycity(cityList.get(i));
         }
 
+        //Display Cities within a continent ordered by large to small
+        ArrayList<City> cityListContinent = a.CityContLargetoSmall();
+
+        //Display Results
+        for (int i = 0; i < cityListContinent.size(); i++){
+            a.displayCityContLargeToSmall(cityListContinent.get(i));
+        }
 
         // Disconnect from database
         a.disconnect();
@@ -87,7 +94,7 @@ public class App
             }
         }
     }
-    public ArrayList<City> getAllCities()
+    public ArrayList<City> CityPopLargeToSmall()
     {
 
         ArrayList<City> ResultList = new ArrayList<City>();
@@ -141,13 +148,66 @@ public class App
         }
     }
 
+        public ArrayList<City> CityContLargetoSmall() {
+
+            ArrayList<City> ResultList = new ArrayList<City>();
+            try {
+                // Create an SQL statement
+                Statement stmt = con.createStatement();
+                // Create string for SQL statement
+                String strSelect =
+                        "SELECT city.ID, city.name, country.name, city.District, city.Population, country.code, city.CountryCode "
+                                + "FROM country, city "
+                                + "WHERE country.code = city.CountryCode AND country.Continent LIKE 'Asia'"
+                                + "ORDER BY city.Population DESC ";
+
+                // Execute SQL statement
+                ResultSet rset = stmt.executeQuery(strSelect);
+
+                while (rset.next()) {
+                    //Define database attributes in Java
+                    City cityCont = new City();
+
+                    cityCont.ID = rset.getInt("ID");
+                    cityCont.Name = rset.getString("Name");
+                    cityCont.Population = rset.getInt("Population");
+                    cityCont.CountryCode = rset.getString("CountryCode");
+                    cityCont.District = rset.getString("District");
+
+
+                    Country myCountry = new Country();
+
+
+                    myCountry.code = rset.getString("Code");
+
+                    myCountry.countryName = rset.getString("Name");
+
+
+                    cityCont.country = myCountry;
+                    ResultList.add(cityCont);
+                }
+                return ResultList;
+            }
+
+
+        catch (Exception e){
+        System.out.println(e.getMessage());
+        System.out.println("Failed to get City details");
+        return null;
+
+            }
+    }
+
     public void displaycity(City city)
     {
         if (city != null)
         {
             System.out.println(
-
-                             "City Name: " + city.Name + " |"
+                    "/n"
+                            +"/n"
+                            +"/n"
+                            +"This is the report for cities in the continent Asia ordered by large to small/n"
+                            +"City Name: " + city.Name + " |"
                             + "Country: " + city.country.countryName + " |"
                             + "City District: " + city.District + " |"
                             + "Population: " + city.Population + "|");
@@ -159,5 +219,22 @@ public class App
         }
 
 
+    }
+
+    public void displayCityContLargeToSmall(City CityCont)
+    {
+
+        if (CityCont != null)
+        {
+            System.out.println(
+                    "City Name: " + CityCont.Name + " |"
+                            + "Country: " + CityCont.country.countryName + " |"
+                            + "City District: " + CityCont.District + " |"
+                            + "Population: " + CityCont.Population + "|");
+
+
+
+
+        }
     }
 }
