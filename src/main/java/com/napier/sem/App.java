@@ -15,7 +15,7 @@ public class App {
         // Display results
         for (int i = 0; i < cityList.size(); i++) {
             a.displaycity(cityList.get(i));
-        }
+       }
 
         //Find Cities within a continent ordered by large to small
         ArrayList<City> cityListContinent = a.CityContLargetoSmall();
