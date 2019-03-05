@@ -203,11 +203,8 @@ public class App
         if (city != null)
         {
             System.out.println(
-                    "/n"
-                            +"/n"
-                            +"/n"
-                            +"This is the report for cities in the continent Asia ordered by large to small/n"
-                            +"City Name: " + city.Name + " |"
+
+                            "City Name: " + city.Name + " |"
                             + "Country: " + city.country.countryName + " |"
                             + "City District: " + city.District + " |"
                             + "Population: " + city.Population + "|");
