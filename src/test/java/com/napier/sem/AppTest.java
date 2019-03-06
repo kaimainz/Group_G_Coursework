@@ -47,9 +47,60 @@ public class AppTest
         }
     }
 
+
     @Test
-    void testCityPopnull()
-    {
-        app.CityPopLargeToSmall();
+    void displayCityNull() {
+        app.displaycity(null);
+    }
+
+    @Test
+    void displayCityEmpty() {
+
+        ArrayList<City> cityList = new ArrayList<City>();
+
+        for (int i = 0; i < cityList.size(); i++) {
+
+            app.displaycity(cityList.get(i));
+        }
+
+    }
+
+    @Test
+    void displayCityContainsNull() {
+        ArrayList<City> cityList = new ArrayList<City>();
+        cityList.add(null);
+
+        for (int i = 0; i < cityList.size(); i++) {
+
+            app.displaycity(cityList.get(i));
+        }
+
+    }
+
+    @Test
+    void displayCity() {
+        ArrayList<City> cityList = new ArrayList<City>();
+        City c = new City();
+        Country con = new Country();
+        c.ID = 1;
+        c.CountryCode = "ABC";
+        c.Name = "Name";
+        c.District = "District";
+        c.Population = 999;
+        con.code = "ABCD";
+        con.countryName = "Country";
+        con.Continent = "Africa";
+        con.Region = "West";
+        con.SurfaceArea = 3.6f;
+
+        c.country = con;
+        cityList.add(c);
+
+        for (int i = 0; i < cityList.size(); i++) {
+
+            app.displaycity(cityList.get(i));
+
+
+        }
     }
 }
