@@ -364,6 +364,8 @@ public class App {
                             + "Population: " + CityCont.Population + "|");
 
 
+        } else {
+            System.out.println("City matched with continent is Null");
         }
     }
 
@@ -377,19 +379,23 @@ public class App {
                             + "Population: " + CityReg.Population + "|");
 
 
+        }else {
+            System.out.println("City matched with region is Null");
         }
     }
 
-    public void displayCityCountryLargeToSmall(City CityReg) {
+    public void displayCityCountryLargeToSmall(City CityCountry) {
 
-        if (CityReg != null) {
+        if (CityCountry != null) {
             System.out.println(
-                    "City Name: " + CityReg.Name + " |"
-                            + "Country: " + CityReg.country.countryName + " |"
-                            + "City District: " + CityReg.District + " |"
-                            + "Population: " + CityReg.Population + "|");
+                    "City Name: " + CityCountry.Name + " |"
+                            + "Country: " + CityCountry.country.countryName + " |"
+                            + "City District: " + CityCountry.District + " |"
+                            + "Population: " + CityCountry.Population + "|");
 
 
+        }else{
+            System.out.println("City matched with country is Null");
         }
     }
 
@@ -402,6 +408,8 @@ public class App {
                             + "Population: " + CityDistrict.Population + "|");
 
 
+        }else {
+            System.out.println("City matched with district is Null");
         }
     }
 }
