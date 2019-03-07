@@ -23,6 +23,8 @@ public class AppIntegrationTest
     void testGetCity()
     {
 
+        //Got to section - Adding integration tests
+
         ArrayList<City> results = app.CityPopLargeToSmall();
 
         int tempLowest = Integer.MAX_VALUE;
