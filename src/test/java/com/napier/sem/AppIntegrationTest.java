@@ -58,5 +58,31 @@ public class AppIntegrationTest
 
     }
 
+    @Test
+    void testGetCity()
+
+    {
+        City c = app.getCity(1);
+        assertEquals(c.ID, 1);
+        assertEquals(c.Name,"Kabul");
+
+
+
+    }
+
+    @Test
+    void testCityPopLargeToSmall() {
+
+        ArrayList<City> results = app.CityPopLargeToSmall();
+
+        int resultSize = 0;
+        for (int i = 0; i < results.size(); i++) {
+
+            resultSize++;
+
+        }
+
+        System.out.println("Number of results: " + resultSize);
+    }
 
 }

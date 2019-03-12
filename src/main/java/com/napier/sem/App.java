@@ -448,4 +448,40 @@ public class App {
         }
     }
 
+    public City getCity(int cityID){
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.ID, city.Name, city.District, city.Population "
+                            + "FROM city "
+                            + "WHERE city.ID = " + cityID;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new city if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                City c = new City();
+                c.ID = rset.getInt("ID");
+                c.Name = rset.getString("Name");
+                c.District = rset.getString("District");
+                c.Population = rset.getInt("Population");
+                return c;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+
+
+    }
+
 }

@@ -18,24 +18,6 @@ public class AppTest
     }
 
 
-
-
-
-       // {
-            //
-          //  {
-
-            //}
-           // else
-            //{
-               // TEST FAILEd
-               // fail("Wrong order");
-           // }
-       // }
-   // }
-
-    //Unit tests for displayCity method
-
     @Test
     void displayCityNull() {
         app.displaycity(null);
