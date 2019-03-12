@@ -16,7 +16,7 @@ public class AppIntegrationTest
     static void init()
     {
         app = new App();
-        app.connect("db");
+        app.connect("localhost:33060");
     }
 
    // @Test
@@ -74,15 +74,39 @@ public class AppIntegrationTest
     void testCityPopLargeToSmall() {
 
         ArrayList<City> results = app.CityPopLargeToSmall();
+        System.out.println("Number of results: " +  results.size());
+    }
 
-        int resultSize = 0;
-        for (int i = 0; i < results.size(); i++) {
+    @Test
+    void testCityContLargeToSmall(){
 
-            resultSize++;
+        ArrayList<City> results = app.CityContLargetoSmall();
+        System.out.println("Number of results: " +  results.size());
 
-        }
+    }
 
-        System.out.println("Number of results: " + resultSize);
+    @Test
+    void testCityRegionLargetoSmall(){
+
+        ArrayList<City> results = app.CityRegionLargetoSmall();
+        System.out.println("Number of results: " +  results.size());
+
+    }
+
+    @Test
+    void testCityCountryLargetoSmall(){
+
+        ArrayList<City> results = app.CityCountryLargetoSmall();
+        System.out.println("Number of results: " +  results.size());
+
+    }
+
+    @Test
+    void testCityDistrictLargetoSmall(){
+
+        ArrayList<City> results = app.CityDistrictLargetoSmall();
+        System.out.println("Number of results: " +  results.size());
+
     }
 
 }

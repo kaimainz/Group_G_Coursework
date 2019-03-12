@@ -49,19 +49,19 @@ public class AppTest
 
     @Test
     void displayCity() {
-        ArrayList<City> cityList = new ArrayList<City>();
-        City c = new City();
-        Country con = new Country();
-        c.ID = 1;
-        c.CountryCode = "ABC";
-        c.Name = "Name";
-        c.District = "District";
-        c.Population = 999;
-        con.code = "ABCD";
-        con.countryName = "Country";
-        con.Continent = "Africa";
-        con.Region = "West";
-        con.SurfaceArea = 3.6f;
+            ArrayList<City> cityList = new ArrayList<City>();
+            City c = new City();
+            Country con = new Country();
+            c.ID = 1;
+            c.CountryCode = "ABC";
+            c.Name = "Name";
+            c.District = "District";
+            c.Population = 999;
+            con.code = "ABCD";
+            con.countryName = "Country";
+            con.Continent = "Africa";
+            con.Region = "West";
+            con.SurfaceArea = 3.6f;
 
         c.country = con;
         cityList.add(c);
