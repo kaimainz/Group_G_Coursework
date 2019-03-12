@@ -9,13 +9,22 @@ public class App {
         App a = new App();
 
         // Connect to database
-        a.connect();
+        if (args.length < 1)
+        {
+            a.connect("localhost:33060");
+        }
+        else
+        {
+            a.connect(args[0]);
+        }
+
+
         // Get city ordered by pop large to small
         ArrayList<City> cityList = a.CityPopLargeToSmall();
         // Display results
         for (int i = 0; i < cityList.size(); i++) {
             a.displaycity(cityList.get(i));
-        }
+       }
 
         //Find Cities within a continent ordered by large to small
         ArrayList<City> cityListContinent = a.CityContLargetoSmall();
@@ -61,29 +70,39 @@ public class App {
     /**
      * Connect to the MySQL database.
      */
-    public void connect() {
-        try {
+    public void connect(String location)
+    {
+        try
+        {
             // Load Database driver
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        }
+        catch (ClassNotFoundException e)
+        {
             System.out.println("Could not load SQL driver");
             System.exit(-1);
         }
 
         int retries = 10;
-        for (int i = 0; i < retries; ++i) {
+        for (int i = 0; i < retries; ++i)
+        {
             System.out.println("Connecting to database...");
-            try {
+            try
+            {
                 // Wait a bit for db to start
                 Thread.sleep(30000);
                 // Connect to database
-                con = DriverManager.getConnection("jdbc:mysql://db:3306/world?useSSL=false", "root", "example");
+                con = DriverManager.getConnection("jdbc:mysql://" + location + "/world?allowPublicKeyRetrieval=true&useSSL=false", "root", "example");
                 System.out.println("Successfully connected");
                 break;
-            } catch (SQLException sqle) {
+            }
+            catch (SQLException sqle)
+            {
                 System.out.println("Failed to connect to database attempt " + Integer.toString(i));
                 System.out.println(sqle.getMessage());
-            } catch (InterruptedException ie) {
+            }
+            catch (InterruptedException ie)
+            {
                 System.out.println("Thread interrupted? Should not happen.");
             }
         }
@@ -364,6 +383,8 @@ public class App {
                             + "Population: " + CityCont.Population + "|");
 
 
+        } else {
+            System.out.println("City matched with continent is Null");
         }
     }
 
@@ -377,19 +398,23 @@ public class App {
                             + "Population: " + CityReg.Population + "|");
 
 
+        }else {
+            System.out.println("City matched with region is Null");
         }
     }
 
-    public void displayCityCountryLargeToSmall(City CityReg) {
+    public void displayCityCountryLargeToSmall(City CityCountry) {
 
-        if (CityReg != null) {
+        if (CityCountry != null) {
             System.out.println(
-                    "City Name: " + CityReg.Name + " |"
-                            + "Country: " + CityReg.country.countryName + " |"
-                            + "City District: " + CityReg.District + " |"
-                            + "Population: " + CityReg.Population + "|");
+                    "City Name: " + CityCountry.Name + " |"
+                            + "Country: " + CityCountry.country.countryName + " |"
+                            + "City District: " + CityCountry.District + " |"
+                            + "Population: " + CityCountry.Population + "|");
 
 
+        }else{
+            System.out.println("City matched with country is Null");
         }
     }
 
@@ -402,6 +427,61 @@ public class App {
                             + "Population: " + CityDistrict.Population + "|");
 
 
+        }else {
+            System.out.println("City matched with district is Null");
         }
     }
+
+    public void addCity(City c){
+
+        try {
+            Statement stmt = con.createStatement();
+            String strUpdate =
+                    "INSERT INTO city (city.ID, city.name, city.District, city.Population, city.CountryCode)"
+                    +"VALUES  (" + c.ID + ", '" + c.Name + "', '" + c.District + "', '" + c.Population +"', '" + c.CountryCode + "')";
+
+            stmt.execute(strUpdate);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            System.out.println("Failed to add city");
+        }
+    }
+
+    public City getCity(int cityID){
+        try
+        {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT city.ID, city.Name, city.District, city.Population "
+                            + "FROM city "
+                            + "WHERE city.ID = " + cityID;
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new city if valid.
+            // Check one is returned
+            if (rset.next())
+            {
+                City c = new City();
+                c.ID = rset.getInt("ID");
+                c.Name = rset.getString("Name");
+                c.District = rset.getString("District");
+                c.Population = rset.getInt("Population");
+                return c;
+            }
+            else
+                return null;
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get city details");
+            return null;
+        }
+
+
+    }
+
 }
