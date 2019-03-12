@@ -40,4 +40,23 @@ public class AppIntegrationTest
             }
         }
     }
+
+    @Test
+    void testAddCity()
+    {
+
+        City c = new City();
+        c.ID = 99999;
+        c.Name = "Test_Name";
+        c.District = "Test_District";
+        c.Population = 1000000;
+        c.CountryCode = "ABC";
+        assertEquals(c.ID, 99999);
+        assertEquals(c.Name, "Test_Name");
+        assertEquals(c.District, "Test_District");
+
+
+    }
+
+
 }

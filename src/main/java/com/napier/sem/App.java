@@ -9,7 +9,14 @@ public class App {
         App a = new App();
 
         // Connect to database
-        a.connect("localhost:33060");
+        if (args.length < 1)
+        {
+            a.connect("localhost:3306");
+        }
+        else
+        {
+            a.connect(args[0]);
+        }
 
 
         // Get city ordered by pop large to small
@@ -424,4 +431,21 @@ public class App {
             System.out.println("City matched with district is Null");
         }
     }
+
+    public void addCity(City c){
+
+        try {
+            Statement stmt = con.createStatement();
+            String strUpdate =
+                    "INSERT INTO city (city.ID, city.name, city.District, city.Population, city.CountryCode)"
+                    +"VALUES  (" + c.ID + ", '" + c.Name + "', '" + c.District + "', '" + c.Population +"', '" + c.CountryCode + "')";
+
+            stmt.execute(strUpdate);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            System.out.println("Failed to add city");
+        }
+    }
+
 }
