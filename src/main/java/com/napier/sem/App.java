@@ -58,6 +58,30 @@ public class App {
             a.displayCityDistrictLargeToSmall(cityListDistrict.get(i));
         }
 
+        //Find countries with population organised large to small
+        ArrayList<Country> countryPopLargeToSmall = a.countryPopLargeToSmall();
+
+        //Display results
+        for (int i = 0; i < countryPopLargeToSmall.size(); i++){
+            a.displayCountryPopLargeToSmall(countryPopLargeToSmall.get(i));
+        }
+
+        //Find countries with population in Europe organised large to small
+        ArrayList<Country> countryContLargeToSmall = a.countryContPopLargeToSmall();
+
+        //Display results
+        for (int i = 0; i < countryContLargeToSmall.size(); i++){
+            a.displayCountryContPopLargeToSmall(countryContLargeToSmall.get(i));
+        }
+        //Find countries with population in the Caribbean organised large to small
+        ArrayList<Country> countryRegLargeToSmall = a.countryRegPopLargeToSmall();
+
+        //Display results
+        for (int i = 0; i < countryRegLargeToSmall.size(); i++){
+            a.displayCountryRegPopLargeToSmall(countryRegLargeToSmall.get(i));
+        }
+
+
         // Disconnect from database
         a.disconnect();
     }
@@ -482,6 +506,204 @@ public class App {
         }
 
 
+    }
+
+    public ArrayList<Country> countryPopLargeToSmall() {
+
+        ArrayList<Country> ResultList = new ArrayList<>();
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.code, country.name, country.continent, country.region, country.Population, country.capital "
+                            + "FROM country "
+                            + "ORDER BY country.Population DESC ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new City if valid.
+            // Check one is returned
+            while (rset.next()) {
+
+                //Define database attributes in Java
+                Country myCountry = new Country();
+
+                myCountry.code = rset.getString("Code");
+                myCountry.countryName = rset.getString("Name");
+                myCountry.Continent = rset.getString("continent");
+                myCountry.Region = rset.getString("region");
+                myCountry.population = rset.getInt("Population");
+                myCountry.Capital = rset.getString("capital");
+
+
+
+
+
+
+
+
+
+
+                ResultList.add(myCountry);
+            }
+
+            return ResultList;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country details");
+            return null;
+        }
+    }
+
+    public ArrayList<Country> countryContPopLargeToSmall() {
+
+        ArrayList<Country> ResultList = new ArrayList<>();
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.code, country.name, country.continent, country.region, country.Population, country.capital "
+                            + "FROM country "
+                            + "WHERE country.continent LIKE 'Europe' "
+                            + "ORDER BY country.Population DESC ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new City if valid.
+            // Check one is returned
+            while (rset.next()) {
+
+                //Define database attributes in Java
+                Country myCountry = new Country();
+
+                myCountry.code = rset.getString("Code");
+                myCountry.countryName = rset.getString("Name");
+                myCountry.Continent = rset.getString("continent");
+                myCountry.Region = rset.getString("region");
+                myCountry.population = rset.getInt("Population");
+                myCountry.Capital = rset.getString("capital");
+
+
+
+
+
+
+
+
+
+
+                ResultList.add(myCountry);
+            }
+
+            return ResultList;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get European country details");
+            return null;
+        }
+    }
+
+    public ArrayList<Country> countryRegPopLargeToSmall() {
+
+        ArrayList<Country> ResultList = new ArrayList<>();
+        try {
+            // Create an SQL statement
+            Statement stmt = con.createStatement();
+            // Create string for SQL statement
+            String strSelect =
+                    "SELECT country.code, country.name, country.continent, country.region, country.Population, country.capital "
+                            + "FROM country "
+                            + "WHERE country.region LIKE 'Caribbean' "
+                            + "ORDER BY country.Population DESC ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+            // Return new City if valid.
+            // Check one is returned
+            while (rset.next()) {
+
+                //Define database attributes in Java
+                Country myCountry = new Country();
+
+                myCountry.code = rset.getString("Code");
+                myCountry.countryName = rset.getString("Name");
+                myCountry.Continent = rset.getString("continent");
+                myCountry.Region = rset.getString("region");
+                myCountry.population = rset.getInt("Population");
+                myCountry.Capital = rset.getString("capital");
+
+
+
+
+
+
+
+
+
+
+                ResultList.add(myCountry);
+            }
+
+            return ResultList;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get country Caribbean country details");
+            return null;
+        }
+    }
+
+
+    public void displayCountryPopLargeToSmall(Country countryPop) {
+
+        if (countryPop != null) {
+            System.out.println(
+                    "Country code: " + countryPop.code + " |"
+                            + "Country name: " + countryPop.countryName + " |"
+                            + "Country continent: " + countryPop.Continent + " |"
+                            + "Country region: " + countryPop.Region + " |"
+                            + "Country population: " + countryPop.population + " |"
+                            + "Country capital: " + countryPop.Capital + " |");
+
+
+        }else {
+            System.out.println("country Population statement is Null");
+        }
+    }
+
+    public void displayCountryContPopLargeToSmall(Country countryPopCont) {
+
+        if (countryPopCont != null) {
+            System.out.println(
+                    "Country code: " + countryPopCont.code + " |"
+                            + "Country name: " + countryPopCont.countryName + " |"
+                            + "Country continent: " + countryPopCont.Continent + " |"
+                            + "Country region: " + countryPopCont.Region + " |"
+                            + "Country population: " + countryPopCont.population + " |"
+                            + "Country capital: " + countryPopCont.Capital + " |");
+
+
+        }else {
+            System.out.println("country Population in Europe statement is Null");
+        }
+    }
+
+    public void displayCountryRegPopLargeToSmall(Country countryPopReg) {
+
+        if (countryPopReg != null) {
+            System.out.println(
+                    "Country code: " + countryPopReg.code + " |"
+                            + "Country name: " + countryPopReg.countryName + " |"
+                            + "Country continent: " + countryPopReg.Continent + " |"
+                            + "Country region: " + countryPopReg.Region + " |"
+                            + "Country population: " + countryPopReg.population + " |"
+                            + "Country capital: " + countryPopReg.Capital + " |");
+
+
+        }else {
+            System.out.println("country Population in the Caribbean statement is Null");
+        }
     }
 
 }

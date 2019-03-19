@@ -14,4 +14,8 @@ public class Country {
 
     public Float SurfaceArea;
 
+    public Integer population;
+
+    public String Capital;
+
 }
