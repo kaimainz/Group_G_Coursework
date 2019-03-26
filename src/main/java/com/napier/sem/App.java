@@ -1,7 +1,16 @@
 package com.napier.sem;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.sql.*;
 import java.util.ArrayList;
+
+@SpringBootApplication
+@RestController
 
 public class App {
     public static void main(String[] args) {
@@ -11,12 +20,13 @@ public class App {
         // Connect to database
         if (args.length < 1)
         {
-            a.connect("localhost:33060");
+            a.connect("35.246.121.10:3306");
         }
         else
         {
             a.connect(args[0]);
         }
+        SpringApplication.run(App.class, args);
 
 
         // Get city ordered by pop large to small
@@ -89,12 +99,12 @@ public class App {
     /**
      * Connection to MySQL database.
      */
-    private Connection con = null;
+    private static Connection con = null;
 
     /**
      * Connect to the MySQL database.
      */
-    public void connect(String location)
+    public static void connect(String location)
     {
         try
         {
@@ -135,7 +145,7 @@ public class App {
     /**
      * Disconnect from the MySQL database.
      */
-    public void disconnect() {
+    public static void disconnect() {
         if (con != null) {
             try {
                 // Close connection
