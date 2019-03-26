@@ -16,7 +16,7 @@ public class AppIntegrationTest
     static void init()
     {
         app = new App();
-        app.connect("localhost:33060");
+        app.connect("35.246.121.10:3306");
     }
 
 
@@ -42,7 +42,7 @@ public class AppIntegrationTest
     void testGetCity()
 
     {
-        City c = app.getCity(1);
+        City c = app.getCity("1");
         assertEquals(c.ID, 1);
         assertEquals(c.Name,"Kabul");
 

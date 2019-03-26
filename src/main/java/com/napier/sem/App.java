@@ -91,9 +91,6 @@ public class App {
             a.displayCountryRegPopLargeToSmall(countryRegLargeToSmall.get(i));
         }
 
-
-        // Disconnect from database
-        a.disconnect();
     }
 
     /**
@@ -156,6 +153,7 @@ public class App {
         }
     }
 
+    @RequestMapping("CityPopLargeToSmall")
     public ArrayList<City> CityPopLargeToSmall() {
 
         ArrayList<City> ResultList = new ArrayList<City>();
@@ -205,6 +203,7 @@ public class App {
         }
     }
 
+    @RequestMapping("CityContLargetoSmall")
     public ArrayList<City> CityContLargetoSmall() {
 
         ArrayList<City> ResultList = new ArrayList<City>();
@@ -251,7 +250,7 @@ public class App {
 
         }
     }
-
+    @RequestMapping("CityRegionLargetoSmall")
     public ArrayList<City> CityRegionLargetoSmall() {
 
         ArrayList<City> ResultList = new ArrayList<City>();
@@ -303,7 +302,7 @@ public class App {
         }
 
     }
-
+    @RequestMapping("CityCountryLargetoSmall")
     public ArrayList<City> CityCountryLargetoSmall() {
 
         ArrayList<City> ResultList = new ArrayList<City>();
@@ -351,6 +350,7 @@ public class App {
         }
     }
 
+    @RequestMapping("CityDistrictLargetoSmall")
     public ArrayList<City> CityDistrictLargetoSmall() {
 
         ArrayList<City> ResultList = new ArrayList<City>();
@@ -481,8 +481,13 @@ public class App {
             System.out.println("Failed to add city");
         }
     }
-
-    public City getCity(int cityID){
+    /**
+     * Get a single employee record.
+     * @param cityID cityID of the city record to get.
+     * @return return city
+     */
+    @RequestMapping("city")
+    public City getCity(@RequestParam(value = "City") String cityID){
         try
         {
             // Create an SQL statement
@@ -518,6 +523,7 @@ public class App {
 
     }
 
+    @RequestMapping("countryPopLargeToSmall")
     public ArrayList<Country> countryPopLargeToSmall() {
 
         ArrayList<Country> ResultList = new ArrayList<>();
@@ -566,6 +572,7 @@ public class App {
         }
     }
 
+    @RequestMapping("countryContPopLargeToSmall")
     public ArrayList<Country> countryContPopLargeToSmall() {
 
         ArrayList<Country> ResultList = new ArrayList<>();
@@ -615,6 +622,7 @@ public class App {
         }
     }
 
+    @RequestMapping("countryRegPopLargeToSmall")
     public ArrayList<Country> countryRegPopLargeToSmall() {
 
         ArrayList<Country> ResultList = new ArrayList<>();
@@ -682,6 +690,7 @@ public class App {
         }
     }
 
+
     public void displayCountryContPopLargeToSmall(Country countryPopCont) {
 
         if (countryPopCont != null) {
@@ -698,6 +707,7 @@ public class App {
             System.out.println("country Population in Europe statement is Null");
         }
     }
+
 
     public void displayCountryRegPopLargeToSmall(Country countryPopReg) {
 
