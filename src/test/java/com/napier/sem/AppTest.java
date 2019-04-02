@@ -315,6 +315,62 @@ public class AppTest
 
         }
 
+    }
+    @Test
+    void displayCountryPopLargeToSmallNUll(){
+    app.displayCountryPopLargeToSmall(null);
+
+    }
+
+    @Test
+    void displayCountryPopLargeToSmallEmpty() {
+        ArrayList<Country> CountryPopLargeToSmall = new ArrayList<Country>();
+
+        for (int i = 0; i < CountryPopLargeToSmall.size(); i++) {
+
+            app.displayCountryPopLargeToSmall(CountryPopLargeToSmall.get(i));
+
+        }
+    }
+
+    @Test
+    void displayCountryPopLargeToSmallContainsEmpty(){
+
+    ArrayList<Country> CountryPopLargeToSmall = new ArrayList<Country>();
+        CountryPopLargeToSmall.add(null);
+
+        for (int i = 0; i < CountryPopLargeToSmall.size();i++) {
+
+            app.displayCountryPopLargeToSmall(CountryPopLargeToSmall.get(i));
+        }
+}
+
+    @Test
+    void displayCountryPopLargeToSmall(){
+
+        ArrayList<Country> CountryPopLargeToSmall = new ArrayList<Country>();
+        City c = new City();
+        Country con = new Country();
+        c.ID = 1;
+        c.CountryCode = "ABC";
+        c.Name = "Name";
+        c.District = "District";
+        c.Population = 999;
+        con.code = "ABCD";
+        con.countryName = "Country";
+        con.Continent = "Africa";
+        con.Region = "West";
+        con.SurfaceArea = 3.6f;
+
+        c.country = con;
+        CountryPopLargeToSmall.add(con);
+
+        for (int i = 0; i < CountryPopLargeToSmall.size(); i++) {
+
+            app.displayCountryPopLargeToSmall(CountryPopLargeToSmall.get(i));
+
+
+        }
 
 
     }
