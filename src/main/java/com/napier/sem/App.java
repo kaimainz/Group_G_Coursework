@@ -20,7 +20,7 @@ public class App {
         // Connect to database
         if (args.length < 1)
         {
-            a.connect("localhost:3306");
+            a.connect("localhost:33060");
          //a.connect("35.246.82.142:80");
         }
         else

@@ -8,26 +8,26 @@ addons:
 
 env:
   global:
-  # Ensure Google Cloud SDK doesn't prompt for installing.
   - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+
 
 services:
 - docker
 
+
+
 install:
-# Build database image.
 - docker build -t database db/.
-# Run the database image.
 - docker run --rm -d -e MYSQL_ROOT_PASSWORD=example -p 33060:3306 database
-# Build and install the application.
 - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 
 before_script:
-# Clean any files.
 - mvn clean
 
-# Job stages
-jobs:
+
+
+
+obs:
   include:
   # Unit test stage.
   - stage: unit tests
@@ -105,11 +105,4 @@ stages:
   if: branch = master
 
 after_success:
-# Push code coverage data to codecov.
 - bash <(curl -s https://codecov.io/bash)
-
-before_install:
-# Decrypts the credentials file.
-# The keyname will be different for your project.
-- openssl aes-256-cbc -K $encrypted_b295e594d102_key -iv $encrypted_b295e594d102_iv
-  -in client-secret.json.enc -out client-secret.json -d
