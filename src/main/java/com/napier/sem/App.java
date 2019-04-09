@@ -21,7 +21,7 @@ public class App {
         if (args.length < 1)
         {
             a.connect("localhost:3306");
-          // a.connect("35.246.82.142:80");
+         //a.connect("35.246.82.142:80");
         }
         else
         {
