@@ -42,7 +42,7 @@ public class AppIntegrationTest
     void testGetCity()
 
     {
-        City c = app.getCity(1);
+        City c = app.getCity("1");
         assertEquals(c.ID, 1);
         assertEquals(c.Name,"Kabul");
 

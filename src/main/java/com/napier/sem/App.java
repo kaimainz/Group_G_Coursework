@@ -1,7 +1,16 @@
 package com.napier.sem;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import java.sql.*;
 import java.util.ArrayList;
+
+@SpringBootApplication
+@RestController
 
 public class App {
     public static void main(String[] args) {
@@ -12,11 +21,13 @@ public class App {
         if (args.length < 1)
         {
             a.connect("localhost:33060");
+         //a.connect("35.246.82.142:80");
         }
         else
         {
             a.connect(args[0]);
         }
+        SpringApplication.run(App.class, args);
 
 
         // Get city ordered by pop large to small
@@ -81,20 +92,17 @@ public class App {
             a.displayCountryRegPopLargeToSmall(countryRegLargeToSmall.get(i));
         }
 
-
-        // Disconnect from database
-        a.disconnect();
     }
 
     /**
      * Connection to MySQL database.
      */
-    private Connection con = null;
+    private static Connection con = null;
 
     /**
      * Connect to the MySQL database.
      */
-    public void connect(String location)
+    public static void connect(String location)
     {
         try
         {
@@ -135,7 +143,7 @@ public class App {
     /**
      * Disconnect from the MySQL database.
      */
-    public void disconnect() {
+    public static void disconnect() {
         if (con != null) {
             try {
                 // Close connection
@@ -146,6 +154,7 @@ public class App {
         }
     }
 
+    @RequestMapping("CityPopLargeToSmall")
     public ArrayList<City> CityPopLargeToSmall() {
 
         ArrayList<City> ResultList = new ArrayList<City>();
@@ -195,6 +204,7 @@ public class App {
         }
     }
 
+    @RequestMapping("CityContLargetoSmall")
     public ArrayList<City> CityContLargetoSmall() {
 
         ArrayList<City> ResultList = new ArrayList<City>();
@@ -241,7 +251,7 @@ public class App {
 
         }
     }
-
+    @RequestMapping("CityRegionLargetoSmall")
     public ArrayList<City> CityRegionLargetoSmall() {
 
         ArrayList<City> ResultList = new ArrayList<City>();
@@ -293,7 +303,7 @@ public class App {
         }
 
     }
-
+    @RequestMapping("CityCountryLargetoSmall")
     public ArrayList<City> CityCountryLargetoSmall() {
 
         ArrayList<City> ResultList = new ArrayList<City>();
@@ -341,6 +351,7 @@ public class App {
         }
     }
 
+    @RequestMapping("CityDistrictLargetoSmall")
     public ArrayList<City> CityDistrictLargetoSmall() {
 
         ArrayList<City> ResultList = new ArrayList<City>();
@@ -471,8 +482,13 @@ public class App {
             System.out.println("Failed to add city");
         }
     }
-
-    public City getCity(int cityID){
+    /**
+     * Get a single employee record.
+     * @param cityID cityID of the city record to get.
+     * @return return city
+     */
+    @RequestMapping("city")
+    public City getCity(@RequestParam(value = "City") String cityID){
         try
         {
             // Create an SQL statement
@@ -508,6 +524,7 @@ public class App {
 
     }
 
+    @RequestMapping("countryPopLargeToSmall")
     public ArrayList<Country> countryPopLargeToSmall() {
 
         ArrayList<Country> ResultList = new ArrayList<>();
@@ -556,6 +573,7 @@ public class App {
         }
     }
 
+    @RequestMapping("countryContPopLargeToSmall")
     public ArrayList<Country> countryContPopLargeToSmall() {
 
         ArrayList<Country> ResultList = new ArrayList<>();
@@ -605,6 +623,7 @@ public class App {
         }
     }
 
+    @RequestMapping("countryRegPopLargeToSmall")
     public ArrayList<Country> countryRegPopLargeToSmall() {
 
         ArrayList<Country> ResultList = new ArrayList<>();
@@ -672,6 +691,7 @@ public class App {
         }
     }
 
+
     public void displayCountryContPopLargeToSmall(Country countryPopCont) {
 
         if (countryPopCont != null) {
@@ -688,6 +708,7 @@ public class App {
             System.out.println("country Population in Europe statement is Null");
         }
     }
+
 
     public void displayCountryRegPopLargeToSmall(Country countryPopReg) {
 
